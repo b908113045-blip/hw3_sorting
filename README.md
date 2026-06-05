@@ -4,7 +4,6 @@
 
 本作業旨在實作三種常見排序演算法：選擇排序（Selection Sort）、泡泡排序（Bubble Sort）以及快速排序（Quick Sort），並透過圖形化介面（GUI）與多執行緒（Thread）技術，同步比較三種排序演算法的執行效率差異。藉由實際測試與觀察，了解不同演算法在處理大量資料時的效能表現。
 
----
 
 ## 二、實驗環境
 
@@ -20,7 +19,6 @@
 * time
 * tkinter.ttk
 
----
 
 ## 三、演算法介紹
 
@@ -41,7 +39,6 @@
 * Average Case：O(n²)
 * Worst Case：O(n²)
 
----
 
 ### （二）Bubble Sort（泡泡排序）
 
@@ -60,7 +57,6 @@
 * Average Case：O(n²)
 * Worst Case：O(n²)
 
----
 
 ### （三）Quick Sort（快速排序）
 
@@ -82,7 +78,6 @@
 * Average Case：O(n log n)
 * Worst Case：O(n²)
 
----
 
 ## 四、系統設計
 
@@ -98,7 +93,6 @@
 6. 顯示各排序演算法的執行時間。
 7. 比較不同排序演算法的效能差異。
 
----
 
 ## 五、實驗結果
 
@@ -116,11 +110,3 @@
 Quick Sort 的平均時間複雜度為 O(n log n)，因此在大量資料下仍能維持良好的執行效率；而 Selection Sort 與 Bubble Sort 皆屬於 O(n²) 的演算法，需要進行大量比較與交換，因此執行時間明顯較長。
 
 由實驗結果可知，在處理大量資料時，Quick Sort 的效能遠優於 Selection Sort 與 Bubble Sort。
-
----
-
-## 六、結論
-
-本作業成功實作 Bubble Sort、Selection Sort 與 Quick Sort 三種排序演算法，並透過 Tkinter 圖形化介面與多執行緒技術進行效能比較。
-
-實驗結果顯示，Quick Sort 在大量資料下具有最佳排序效率；Selection Sort 與 Bubble Sort 雖然實作較為簡單，但執行效率相對較低。透過本次作業，不僅了解各種排序演算法的運作原理，也學習到 Thread、多工執行及 GUI 設計等程式開發技巧，進一步提升對演算法分析與系統設計的理解。
