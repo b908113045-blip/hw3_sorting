@@ -59,4 +59,3 @@ def quick_sort(arr, start, end):
 
     quick_sort(arr, start, pivot_index - 1)
     quick_sort(arr, pivot_index + 1, end)
-  
