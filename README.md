@@ -9,8 +9,9 @@
 * 開發語言：Python 3.x
 * GUI框架：Tkinter 
 * 使用模組： 
-  * threading o
-  * random o time 
+  * threading 
+  * random
+  * time 
   * tkinter.ttk
 
 # 三、演算法介紹
