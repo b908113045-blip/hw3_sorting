@@ -77,4 +77,5 @@
   * Quick Sort 完成速度最快。
   * Selection Sort 與 Bubble Sort 耗時較長。
   * 當資料量增加時，Quick Sort 與另外兩種演算法的差距更加明顯。
+
 從實驗可觀察到： Quick Sort 的平均時間複雜度為 O(n log n)，因此在大量資料下仍具有良好的執行效率；而 Selection Sort 與 Bubble Sort 因為需要大量比較與交換，其時間複雜度為 O(n²)，故執行時間明顯較長。 
