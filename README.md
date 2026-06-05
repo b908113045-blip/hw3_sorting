@@ -6,9 +6,9 @@
 
 ## 二、實驗環境
 
-• 開發語言：Python 3.x 
-• GUI框架：Tkinter 
-• 使用模組： 
+* 開發語言：Python 3.x
+* GUI框架：Tkinter 
+* 使用模組： 
   * threading o
   * random o time 
   * tkinter.ttk
