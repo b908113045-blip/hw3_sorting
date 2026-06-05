@@ -14,7 +14,9 @@ def selection_sort(arr):
         arr[i], arr[min_index] = arr[min_index], arr[i]
 
     return arr
-  def bubble_sort(arr):
+
+
+def bubble_sort(arr):
 
     n = len(arr)
 
@@ -27,7 +29,9 @@ def selection_sort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
     return arr
-    def partition(arr, start, end):
+
+
+def partition(arr, start, end):
 
     pivot = arr[start]
 
