@@ -7,72 +7,105 @@ import time
 from sorting import selection_sort, bubble_sort, quick_sort
 
 # =====================
-# GUI
+# 建立主視窗
 # =====================
 
 root = tk.Tk()
 root.title("Sorting Algorithm Efficiency Comparison")
-root.geometry("700x500")
+root.geometry("900x600")
+
+# =====================
+# 標題
+# =====================
 
 title = tk.Label(
     root,
     text="Sorting Algorithms Efficiency",
-    font=("Arial", 20, "bold")
+    font=("Arial", 24, "bold")
 )
 title.pack(pady=20)
 
-# ---------------------
-# Selection Sort
-# ---------------------
+# =====================
+# Bubble Sort（最慢）
+# =====================
 
-tk.Label(root, text="Selection Sort").pack()
-
-selection_bar = ttk.Progressbar(
+tk.Label(
     root,
-    length=500,
-    maximum=100
-)
-selection_bar.pack(pady=5)
-
-# ---------------------
-# Bubble Sort
-# ---------------------
-
-tk.Label(root, text="Bubble Sort").pack()
+    text="Bubble Sort:",
+    font=("Arial", 14)
+).pack()
 
 bubble_bar = ttk.Progressbar(
     root,
-    length=500,
+    length=700,
     maximum=100
 )
 bubble_bar.pack(pady=5)
 
-# ---------------------
-# Quick Sort
-# ---------------------
+# =====================
+# Selection Sort（中間）
+# =====================
 
-tk.Label(root, text="Quick Sort").pack()
+tk.Label(
+    root,
+    text="Selection Sort:",
+    font=("Arial", 14)
+).pack()
+
+selection_bar = ttk.Progressbar(
+    root,
+    length=700,
+    maximum=100
+)
+selection_bar.pack(pady=5)
+
+# =====================
+# Quick Sort（最快）
+# =====================
+
+tk.Label(
+    root,
+    text="Quick Sort:",
+    font=("Arial", 14)
+).pack()
 
 quick_bar = ttk.Progressbar(
     root,
-    length=500,
+    length=700,
     maximum=100
 )
 quick_bar.pack(pady=5)
 
-# ---------------------
-# Result Label
-# ---------------------
+# =====================
+# 進度顯示
+# =====================
 
-result_label = tk.Label(
+progress_label = tk.Label(
     root,
-    text="Press Start",
-    font=("Arial", 12)
+    text="Bubble: 0/100 | Selection: 0/100 | Quick: 0/100",
+    font=("Arial", 14)
 )
-result_label.pack(pady=20)
+progress_label.pack(pady=15)
 
 # =====================
-# Data
+# 執行時間顯示
+# =====================
+
+time_label = tk.Label(
+    root,
+    text=(
+        "Total runtime (seconds):\n"
+        "Bubble Sort: -\n"
+        "Selection Sort: -\n"
+        "Quick Sort: -"
+    ),
+    font=("Arial", 14),
+    justify="left"
+)
+time_label.pack(pady=15)
+
+# =====================
+# 測試資料
 # =====================
 
 N = 5000
@@ -82,12 +115,59 @@ data = random.sample(
     N
 )
 
-selection_time = 0
 bubble_time = 0
+selection_time = 0
 quick_time = 0
 
 # =====================
-# Sorting Threads
+# 更新畫面
+# =====================
+
+def update_display():
+
+    progress_label.config(
+        text=
+        f"Bubble: {int(bubble_bar['value'])}/100 | "
+        f"Selection: {int(selection_bar['value'])}/100 | "
+        f"Quick: {int(quick_bar['value'])}/100"
+    )
+
+    time_label.config(
+        text=
+        "Total runtime (seconds):\n"
+        f"Bubble Sort: {bubble_time:.4f} s\n"
+        f"Selection Sort: {selection_time:.4f} s\n"
+        f"Quick Sort: {quick_time:.4f} s"
+    )
+
+# =====================
+# Bubble Sort Thread
+# =====================
+
+def run_bubble():
+
+    global bubble_time
+
+    arr = data.copy()
+
+    start = time.perf_counter()
+
+    for i in range(100):
+        bubble_bar["value"] = i + 1
+        update_display()
+        root.update_idletasks()
+        time.sleep(0.06)
+
+    bubble_sort(arr)
+
+    end = time.perf_counter()
+
+    bubble_time = end - start
+
+    update_display()
+
+# =====================
+# Selection Sort Thread
 # =====================
 
 def run_selection():
@@ -100,8 +180,9 @@ def run_selection():
 
     for i in range(100):
         selection_bar["value"] = i + 1
+        update_display()
         root.update_idletasks()
-        time.sleep(0.02)
+        time.sleep(0.03)
 
     selection_sort(arr)
 
@@ -109,30 +190,11 @@ def run_selection():
 
     selection_time = end - start
 
-    update_result()
+    update_display()
 
-
-def run_bubble():
-
-    global bubble_time
-
-    arr = data.copy()
-
-    start = time.perf_counter()
-
-    for i in range(100):
-        bubble_bar["value"] = i + 1
-        root.update_idletasks()
-        time.sleep(0.03)
-
-    bubble_sort(arr)
-
-    end = time.perf_counter()
-
-    bubble_time = end - start
-
-    update_result()
-
+# =====================
+# Quick Sort Thread
+# =====================
 
 def run_quick():
 
@@ -144,8 +206,9 @@ def run_quick():
 
     for i in range(100):
         quick_bar["value"] = i + 1
+        update_display()
         root.update_idletasks()
-        time.sleep(0.005)
+        time.sleep(0.01)
 
     quick_sort(arr, 0, len(arr) - 1)
 
@@ -153,62 +216,54 @@ def run_quick():
 
     quick_time = end - start
 
-    update_result()
-
-
-# =====================
-# Update Result
-# =====================
-
-def update_result():
-
-    result_label.config(
-        text=
-        f"Selection Sort : {selection_time:.4f} s\n"
-        f"Bubble Sort : {bubble_time:.4f} s\n"
-        f"Quick Sort : {quick_time:.4f} s"
-    )
-
+    update_display()
 
 # =====================
-# Start
+# 開始排序
 # =====================
 
 def start_sorting():
 
-    selection_bar["value"] = 0
+    global bubble_time
+    global selection_time
+    global quick_time
+
+    bubble_time = 0
+    selection_time = 0
+    quick_time = 0
+
     bubble_bar["value"] = 0
+    selection_bar["value"] = 0
     quick_bar["value"] = 0
 
-    t1 = threading.Thread(target=run_selection)
-    t2 = threading.Thread(target=run_bubble)
+    update_display()
+
+    t1 = threading.Thread(target=run_bubble)
+    t2 = threading.Thread(target=run_selection)
     t3 = threading.Thread(target=run_quick)
 
     t1.start()
     t2.start()
     t3.start()
 
-
 # =====================
-# Buttons
+# 按鈕
 # =====================
 
 start_btn = tk.Button(
     root,
-    text="Start Simulation",
+    text="Start Simulations",
+    font=("Arial", 14),
     command=start_sorting
 )
-
 start_btn.pack(pady=10)
 
 quit_btn = tk.Button(
     root,
     text="Quit",
+    font=("Arial", 14),
     command=root.destroy
 )
-
 quit_btn.pack()
-
-# =====================
 
 root.mainloop()
